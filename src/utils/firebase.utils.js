@@ -9,15 +9,10 @@ import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA1Lw0YJNJMyRs-3Sedwj9NR-IHlZvSOZY",
-
   authDomain: "e-shop-db-edb4d.firebaseapp.com",
-
   projectId: "e-shop-db-edb4d",
-
   storageBucket: "e-shop-db-edb4d.appspot.com",
-
   messagingSenderId: "19649241352",
-
   appId: "1:19649241352:web:237b1954e4461bef958cbd",
 };
 
@@ -31,9 +26,22 @@ provider.setCustomParameters({
 export const auth = getAuth();
 export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
 
+//? Google firebase database --------------
 export const db = getFirestore();
 export const createUserDocumentFromAuth = async (userAuth) => {
   const userDocRef = doc(db, "users", userAuth.uid);
   const userSnapshot = await getDoc(userDocRef);
-  console.log(userSnapshot.exists);
+  console.log(userSnapshot.exists());
+
+  if (!userSnapshot.exists()) {
+    const { displayName, email } = userAuth;
+    const createAt = new Date();
+
+    try {
+      await setDoc(userDocRef, { displayName, email, createAt });
+    } catch (error) {
+      console.log("error creating user", error);
+    }
+  }
+  return userDocRef;
 };
