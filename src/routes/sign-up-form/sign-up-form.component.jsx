@@ -13,7 +13,6 @@ const defaultFromFields = {
 const SignupFrom = () => {
   const [formFields, setFormFields] = useState(defaultFromFields);
   const { displayName, email, password, confirmPassword } = formFields;
-  console.log(formFields);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,7 +35,7 @@ const SignupFrom = () => {
   return (
     <div>
       <h1>Sign UP with your email and password</h1>
-      <form action="" onSubmit={() => handleSubmit}>
+      <form action="" onSubmit={handleSubmit}>
         <label htmlFor="">Display Name</label>
         <input
           type="text"
