@@ -5,6 +5,7 @@ import {
   signInWithPopup,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
 } from "firebase/auth";
 import { doc, getDoc, setDoc, getFirestore } from "firebase/firestore";
 
@@ -36,6 +37,7 @@ const signInAuthUserWithEmailAndPassword = async (email, password) => {
   return await signInWithEmailAndPassword(auth, email, password);
 };
 
+const signOutUser = async () => await signOut(auth);
 //!-----------database
 const db = getFirestore();
 const createUserDocumentFromAuth = async (userAuth, additionalInfo = {}) => {
@@ -59,4 +61,5 @@ export {
   createUserDocumentFromAuth,
   createAuthUserWithEmailAndPassword,
   signInAuthUserWithEmailAndPassword,
+  signOutUser,
 };
