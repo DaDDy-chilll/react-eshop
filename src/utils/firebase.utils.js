@@ -6,6 +6,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
+  onAuthStateChanged,
 } from "firebase/auth";
 import { doc, getDoc, setDoc, getFirestore } from "firebase/firestore";
 
@@ -38,6 +39,12 @@ const signInAuthUserWithEmailAndPassword = async (email, password) => {
 };
 
 const signOutUser = async () => await signOut(auth);
+
+//! track sign in / sign out start change
+
+const onAuthStateChangedListener = (callback) =>
+  onAuthStateChanged(auth, callback);
+
 //!-----------database
 const db = getFirestore();
 const createUserDocumentFromAuth = async (userAuth, additionalInfo = {}) => {
@@ -62,4 +69,5 @@ export {
   createAuthUserWithEmailAndPassword,
   signInAuthUserWithEmailAndPassword,
   signOutUser,
+  onAuthStateChangedListener,
 };
