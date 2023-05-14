@@ -8,7 +8,14 @@ import {
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
-import { doc, getDoc, setDoc, getFirestore } from "firebase/firestore";
+import {
+  doc,
+  getDoc,
+  setDoc,
+  getFirestore,
+  collection,
+  writeBatch,
+} from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA1Lw0YJNJMyRs-3Sedwj9NR-IHlZvSOZY",
@@ -47,6 +54,13 @@ const onAuthStateChangedListener = (callback) =>
 
 //!-----------database
 const db = getFirestore();
+
+//new Collection
+
+const addCollectionAndDocuments = async (collectionkey, objectsToAdd) => {
+  const collectionRef = collection(db);
+};
+
 const createUserDocumentFromAuth = async (userAuth, additionalInfo = {}) => {
   const userDocRef = doc(db, "tusers", userAuth.uid);
   const userSnapshot = await getDoc(userDocRef);

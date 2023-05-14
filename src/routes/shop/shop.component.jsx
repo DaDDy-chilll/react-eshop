@@ -9,7 +9,6 @@ const Shop = () => {
       {products.map((product) => (
         <ProductCard key={product.id} product={product} />
       ))}
-      9899368805
     </div>
   );
 };
