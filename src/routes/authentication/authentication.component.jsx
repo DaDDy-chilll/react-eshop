@@ -1,6 +1,6 @@
 // import { useEffect } from "react";
 // import { getRedirectResult } from "firebase/auth";
-import "./authentication.styles.scss";
+import AuthenticationContainer from "./authentication.styles.jsx";
 // import {
 //   signInWithGooglePopUp,
 //   createUserDocumentFromAuth,
@@ -18,10 +18,10 @@ const Authentication = () => {
   // }, []);9267301743
 
   return (
-    <div className="authentication-container">
+    <AuthenticationContainer>
       <SignInFrom />
       <SignupFrom />
-    </div>
+    </AuthenticationContainer>
   );
 };
 export default Authentication;
