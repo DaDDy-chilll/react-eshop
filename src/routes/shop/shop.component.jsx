@@ -24,6 +24,7 @@ const Shop = () => {
 
   useEffect(() => {
     dispatch(fetchCategoriesStartAsync());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
