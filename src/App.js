@@ -9,6 +9,7 @@ import CheckOut from "./routes/checkout/checkout.component";
 import {
   createUserDocumentFromAuth,
   onAuthStateChangedListener,
+  getCurrentUser,
 } from "./utils/firebase.utils";
 import { setCurrentUser } from "./store/user/user.action";
 
@@ -16,13 +17,14 @@ const App = () => {
   //!Redux
   const disptach = useDispatch();
   useEffect(() => {
-    const unsubscribe = onAuthStateChangedListener((user) => {
-      if (user) {
-        createUserDocumentFromAuth(user);
-      }
-      disptach(setCurrentUser(user));
-    });
-    return unsubscribe;
+    getCurrentUser().then((user) => console.log(user));
+    // const unsubscribe = onAuthStateChangedListener((user) => {
+    //   if (user) {
+    //     createUserDocumentFromAuth(user);
+    //   }
+    //   disptach(setCurrentUser(user));
+    // });
+    // return unsubscribe;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

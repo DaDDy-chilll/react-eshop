@@ -3,7 +3,12 @@ import logger from "redux-logger";
 import { rootReducer } from "./root-reducer";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import thunk from "redux-thunk";
+
+//! chose thunk or sega
+// import thunk from "redux-thunk";
+
+import createSagaMiddleware from "redux-saga";
+import { rootSega } from "./root-sega";
 
 // const loggerMiddleware = (store) => (next) => (action) => {
 //   if (!action.type) {
@@ -21,12 +26,18 @@ const presistConifg = {
   key: "root",
   storage,
   blacklist: ["user"],
+  // whitelist: ["cart"],
 };
+
+//sega
+const segaMiddleware = createSagaMiddleware();
+
 const presistedReducer = persistReducer(presistConifg, rootReducer);
 
 const middleWares = [
   process.env.NODE_ENV === "development" && logger,
-  thunk,
+  // thunk,
+  segaMiddleware,
 ].filter(Boolean);
 
 //? Redux Dev tools
@@ -44,5 +55,6 @@ export const store = createStore(
   undefined,
   composedEnchancers
 );
+segaMiddleware.run(rootSega);
 
 export const persistor = persistStore(store);

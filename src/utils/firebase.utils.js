@@ -106,6 +106,20 @@ const createUserDocumentFromAuth = async (userAuth, additionalInfo = {}) => {
   }
   return userDocRef;
 };
+
+const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = onAuthStateChanged(
+      auth,
+      (userAuth) => {
+        unsubscribe();
+        resolve(userAuth);
+      },
+      reject
+    );
+  });
+};
+
 export {
   signInWithGooglePopUp,
   createUserDocumentFromAuth,
@@ -115,4 +129,5 @@ export {
   onAuthStateChangedListener,
   addCollectionAndDocuments,
   getCategoriesAndDocuments,
+  getCurrentUser,
 };

@@ -5,27 +5,37 @@ import { useEffect, useState } from "react";
 import ProductCard from "../../components/product-card/product-card.component";
 
 import { CateoryContainer, Title } from "./category.styles.jsx";
-import { selectCategoriesMap } from "../../store/categories/category.selector";
+import {
+  selectCategoriesMap,
+  selectCategoriesIsLoading,
+} from "../../store/categories/category.selector";
+import Spinner from "../../components/spinner/spinner.component";
 
 const Category = () => {
   //! Redux
   const categoriesMap = useSelector(selectCategoriesMap);
+  const isLoading = useSelector(selectCategoriesIsLoading);
+
   const { category } = useParams();
   // const { categoriesMap } = useContext(CategoriesContext);
   const [products, setProducts] = useState(categoriesMap[category]);
-
+  console.log(isLoading);
   useEffect(() => {
     setProducts(categoriesMap[category]);
   }, [category, categoriesMap]);
   return (
     <>
       <Title>{category}</Title>
-      <CateoryContainer>
-        {products &&
-          products.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-      </CateoryContainer>
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <CateoryContainer>
+          {products &&
+            products.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+        </CateoryContainer>
+      )}
     </>
   );
 };

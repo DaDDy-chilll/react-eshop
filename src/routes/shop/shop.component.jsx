@@ -8,7 +8,7 @@ import Category from "../category/category.component";
 // import { getCategoriesAndDocuments } from "../../utils/firebase.utils";
 import "./shop.styles.jsx";
 import {
-  fetchCategoriesStartAsync,
+  fetchCategoriesStart,
   // setCategories,
 } from "../../store/categories/category.action";
 const Shop = () => {
@@ -23,7 +23,7 @@ const Shop = () => {
   // }, []);
 
   useEffect(() => {
-    dispatch(fetchCategoriesStartAsync());
+    dispatch(fetchCategoriesStart());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
