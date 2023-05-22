@@ -6,18 +6,19 @@ import Navigation from "./routes/navigation/navigation.component";
 import Authentication from "./routes/authentication/authentication.component";
 import Shop from "./routes/shop/shop.component";
 import CheckOut from "./routes/checkout/checkout.component";
-import {
-  createUserDocumentFromAuth,
-  onAuthStateChangedListener,
-  getCurrentUser,
-} from "./utils/firebase.utils";
-import { setCurrentUser } from "./store/user/user.action";
+// import {
+//   createUserDocumentFromAuth,
+//   onAuthStateChangedListener,
+//   getCurrentUser,
+// } from "./utils/firebase.utils";
+import { setCurrentUser, checkUserSession } from "./store/user/user.action";
 
 const App = () => {
   //!Redux
   const disptach = useDispatch();
   useEffect(() => {
-    getCurrentUser().then((user) => console.log(user));
+    disptach(checkUserSession());
+    // getCurrentUser().then((user) => console.log(user));
     // const unsubscribe = onAuthStateChangedListener((user) => {
     //   if (user) {
     //     createUserDocumentFromAuth(user);

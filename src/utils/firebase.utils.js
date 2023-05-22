@@ -104,7 +104,7 @@ const createUserDocumentFromAuth = async (userAuth, additionalInfo = {}) => {
       ...additionalInfo,
     });
   }
-  return userDocRef;
+  return userSnapshot;
 };
 
 const getCurrentUser = () => {
