@@ -1,5 +1,8 @@
 import { useState } from "react";
 // import { UserContext } from "../../contexts/user.context";
+import { useDispatch } from "react-redux";
+import { signUpStart } from "../../store/user/user.action";
+
 import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
 import {
@@ -15,6 +18,7 @@ const defaultFromFields = {
 };
 
 const SignupFrom = () => {
+  const dispatch = useDispatch();
   const [formFields, setFormFields] = useState(defaultFromFields);
   const { displayName, email, password, confirmPassword } = formFields;
   // const { setCurrentUser } = useContext(UserContext);
@@ -23,12 +27,13 @@ const SignupFrom = () => {
     e.preventDefault();
     if (password !== confirmPassword) return;
     try {
-      const { user } = await createAuthUserWithEmailAndPassword(
-        email,
-        password
-      );
+      // const { user } = await createAuthUserWithEmailAndPassword(
+      //   email,
+      //   password
+      // );
+      dispatch(signUpStart(email, password, displayName));
       // setCurrentUser(user); //? UserContext hooks
-      await createUserDocumentFromAuth(user, { displayName });
+      // await createUserDocumentFromAuth(user, { displayName });
       resetForm(defaultFromFields);
     } catch (error) {
       console.log("error with create user", error);
