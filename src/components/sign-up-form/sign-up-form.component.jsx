@@ -21,10 +21,12 @@ const SignupFrom = () => {
   const dispatch = useDispatch();
   const [formFields, setFormFields] = useState(defaultFromFields);
   const { displayName, email, password, confirmPassword } = formFields;
+
   // const { setCurrentUser } = useContext(UserContext);
   const resetForm = () => setFormFields(defaultFromFields);
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(displayName);
     if (password !== confirmPassword) return;
     try {
       // const { user } = await createAuthUserWithEmailAndPassword(

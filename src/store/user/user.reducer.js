@@ -7,7 +7,7 @@ const INITIAL_STATE = {
 
 export const userReducer = (state = INITIAL_STATE, action) => {
   const { type, payload } = action;
-  console.log(payload);
+  // console.log(payload);
   switch (type) {
     case USER_ACTION_TYPES.SIGN_IN_SUCCESS:
       return {
