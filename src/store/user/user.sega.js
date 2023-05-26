@@ -5,6 +5,8 @@ import {
   signInFailed,
   signUpSuccess,
   signUpFailed,
+  signOutSuccess,
+  signOutFailed,
 } from "./user.action";
 import {
   getCurrentUser,
@@ -12,6 +14,7 @@ import {
   signInWithGooglePopUp,
   signInAuthUserWithEmailAndPassword,
   createAuthUserWithEmailAndPassword,
+  signOutUser,
 } from "../../utils/firebase.utils";
 
 export function* getSnapshotFromUserAuth(userAuth, additionalDetails) {
@@ -99,6 +102,20 @@ export function* onSignUpSuccess() {
   yield takeLatest(USER_ACTION_TYPES.SIGN_UP_SUCCESS, signInAfterSignUp);
 }
 
+//! signOut
+export function* signOut() {
+  try {
+    yield call(signOutUser);
+    yield put(signOutSuccess());
+  } catch (error) {
+    yield put(signOutFailed(error));
+  }
+}
+
+export function* onSignOutStart() {
+  yield takeLatest(USER_ACTION_TYPES.SIGN_OUT_START, signOut);
+}
+
 export function* userSega() {
   yield all([
     call(onCheckUserSession),
@@ -106,5 +123,6 @@ export function* userSega() {
     call(onEmailSignInStart),
     call(onSignUpSuccess),
     call(onSignUpStart),
+    call(onSignOutStart),
   ]);
 }

@@ -6,13 +6,16 @@ import { ReactComponent as CrownLogo } from "../../assets/crown.svg";
 // import { CartContext } from "../../contexts/cart.context";
 
 //! Redux
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { selectIsCartOpen } from "../../store/cart/cart.selector";
 import { selectCurrentUser } from "../../store/user/user.selector";
 
-import { signOutUser } from "../../utils/firebase.utils";
+// import { signOutUser } from "../../utils/firebase.utils";
 import CartIcon from "../../components/cart-icon/cart-icon.component";
 import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component";
+
+import { signOutStart } from "../../store/user/user.action";
+
 import {
   NavigationContainer,
   LogoContainer,
@@ -25,8 +28,10 @@ const Navigation = () => {
 
   //!Redux
   // const currentUser = useSelector((state) => state.user.currentUser);
+  const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
   const isCartOpen = useSelector(selectIsCartOpen);
+  const signOutUser = () => dispatch(signOutStart());
   //---------------------
   // const signOutHanlder = async () => {
   //   await signOutUser();
