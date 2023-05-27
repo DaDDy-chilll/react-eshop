@@ -10,7 +10,21 @@ const PaymentFrom = () => {
     e.preventDefault();
 
     if (!stripe || !elements) return;
+
+    const response = await fetch("/netify/functions/create-payment-intent.js", {
+      method: "post",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({ amount: 1000 }),
+    }).then((res) => res.json());
+
+    const {
+      paymentIntent: { client_secret },
+    } = response;
+    console.log(client_secret);
   };
+
   return (
     <PaymentFromContainer>
       <FormContainer>
